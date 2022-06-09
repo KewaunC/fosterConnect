@@ -4,7 +4,7 @@
 // get all the tools we need
 let express  = require('express');
 let app      = express();
-let port     = process.env.PORT || 3000;
+let port     = process.env.PORT || 4000;
 const MongoClient = require('mongodb').MongoClient
 let mongoose = require('mongoose');
 let passport = require('passport');
