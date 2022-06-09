@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: aqua;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  /* flex-wrap: wrap; */
+}
+
+.main-container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  /* flex-wrap: wrap; */
+}
+
+label,
+textarea,
+button {
+  display: block;
+  margin-bottom: 15px;
+}
+
+button {
+  display: block;
+}
+
+.app-container {
+  display: flex;
+  gap: 50px;
+}
+
+.posts {
+  width: 20%;
+}
+
+#posts div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.options {
+  display: flex;
+  gap: 25px;
+  margin-left: 40px;
+}
+
+i {
+  cursor: pointer;
+}
+
+#msg {
+  color: red;
+}
+
+.strikeThrough{
+  color: grey;
+  text-decoration: line-through;
+}

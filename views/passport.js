@@ -9,7 +9,7 @@ let User       		= require('../app/models/user');
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 
-	// =========================================================================
+	// ========================================================================= 
     // passport session setup ==================================================
     // =========================================================================
     // required for persistent login sessions
@@ -60,8 +60,6 @@ module.exports = function(passport) {
                 // set the user's local credentials
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password); // use the generateHash function in our user model
-                newUser.local.name = req.body.name;
-                newUser.userType= req.body.userType
 
 				// save the user
                 newUser.save(function(err) {

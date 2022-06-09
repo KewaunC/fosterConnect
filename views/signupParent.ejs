@@ -10,7 +10,7 @@
 <div class="container">
 <div class="col-sm-6 col-sm-offset-3">
 
-    <h1><span class="fa fa-sign-in"></span> Signup</h1>
+    <h1><span class="fa fa-sign-in"></span> Parent Signup</h1>
 
     <% if (message.length > 0) { %>
         <div class="alert alert-danger"><%= message %></div>
@@ -26,6 +26,8 @@
             <label>Password</label>
             <input type="password" class="form-control" name="password">
         </div>
+        <input type="hidden" name="userType" value="parent">
+
 
         <button type="submit" class="btn btn-warning btn-lg">Signup</button>
     </form>

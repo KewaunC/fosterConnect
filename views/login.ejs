@@ -1,39 +1,47 @@
-<!doctype html>
-<html>
-<head>
-    <title>21 Savage Fan Site</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="login.css">
-</head>
-<body>
-    <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
-    <% } %> 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/66544abedc.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="index.css" />
+    <title>Welcome to Foster Connect</title>
+  </head>
+  <body>
     
-    <div class="login-box">
-        <h2>Login</h2>
-        <form action="/login" method="post">
-          <div class="user-box">
-            <input type="text" name="email" required="">
-            <label>Username</label>
+    <div class="wrapper">
+      <div class="sign-panels">
+        <div class="login">
+          <div class="title">
+            <h1>Welcome to Foster Connect</h1>
+           
           </div>
-          <div class="user-box">
-            <input type="password" name="password" required="">
-            <label>Password</label>
-          </div>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <button class="submit">Submit</button>         
 
-          <p><a href="/signup">Signup</a></p>
-          <p><a href="/">home</a>.</p>
-        </form>       
+          <form action="/login" method="post">
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="text" class="form-control" name="email">
+          </div>
+          <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" name="password">
+          </div>
+
+            <a href="/signupParent" class="btn btn-default"><span class="fa fa-user"></span>Signup as a Parent</a>
+            <a href="/signupKid" class="btn btn-default"><span class="fa fa-user"></span>Signup as a Kid</a>
+
+            <button type="submit">Sign In</button>
+
+          </form>
+        </div>
       </div>
+    </div>
 
-
-
-</body>
+    <script src="index.js"></script>
+  </body>
 </html>
