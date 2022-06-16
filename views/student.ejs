@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/66544abedc.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="mainPageParent.css" />
+  </head>
+  <body>
+
+    <h1>Hello <%= user.local.firstName %></h1>
+
+
+<section class="container">
+  <h2>Courses!</h2>
+
+  <ul class="courseList">
+      <% for(var i=0; i<courses.length; i++) {
+        let completedClass = ''
+        if(courses[i].complete){
+          completedClass = 'completed'
+        }
+        %>
+        <li id="<%= courses[i]._id %>"class="orderUp <%= completedClass %>">  
+          <span class="kidName"><%= courses[i].name %></span>
+          <span><%= courses[i].className %></span> <!--button type where when they clickc on it it will get added to current coures-->
+          <span><%= courses[i].capacity %></span>
+          <span><%= courses[i].category %></span>
+          <span><%= courses[i].courseLength %></span>
+          <p><%= courses[i].description %></p>
+         </li>
+      <% } %>
+  </ul>
+  
+
+</section>
+
+
+
+    <script src="student.js"></script>
+  </body>
+</html>

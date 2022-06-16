@@ -4,8 +4,8 @@
 // get all the tools we need
 let express  = require('express');
 let app      = express();
-let port     = process.env.PORT || 4000;
-const MongoClient = require('mongodb').MongoClient
+let port     = process.env.PORT || 8080;
+const ObjectId = require('mongodb').ObjectId
 let mongoose = require('mongoose');
 let passport = require('passport');
 let flash    = require('connect-flash');
@@ -19,11 +19,12 @@ let configDB = require('./config/database.js');
 
 let db
 
+
 // configuration ===============================================================
 mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err)
   db = database
-  require('./app/routes.js')(app, passport, db);
+  require('./app/routes.js')(app, passport, db, ObjectId);
 }); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration

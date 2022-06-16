@@ -1,23 +1,28 @@
-module.exports = function (app, passport, db) {
+module.exports = function (app, passport, db, ObjectId) {
   app.get("/", function (req, res) {
     res.render("login.ejs");
   });
 
-  app.get("/mainPage", isLoggedIn, function (req, res) {
-    db.collection("user")
-      .find()
-      .toArray((err, result) => {
-        if (err) return console.log(err);
-        // line 14 says that if the data fron Mongodb comes back as user type "parent" allow contraols on main.ejs and if it is not then
-        // run the userType"kid"
-        // check the users userType
-        // send them to the parent main page
-        res.render("main.ejs", {
+  app.get("/teacherPage", isLoggedIn, function (req, res) {
+  
+        res.render("teacher.ejs", {
           user: req.user,
-          goals: result,
-          isParent: req.user.userType === "parent",
+          goals: [], // result comes form the database // want the results from the currently logged in user 
+          isTeacher: req.user.userType === "teacher", // req.user is provided by passoport and provides access to the logged in user obj 
         });
-      });
+    
+  });
+  app.get("/studentPage", isLoggedIn, function (req, res) {
+    console.log(req.user.local)
+    db.collection('course').find().toArray((err, result) => { 
+      if (err) return console.log(err)
+      console.log(result)
+        res.render("student.ejs", {
+          user: req.user,
+          courses: result, // result comes form the database // want the results from the currently logged in user 
+          isStudent: req.user.userType === "student", // req.user is provided by passoport and provides access to the logged in user obj 
+        });    
+  });
   });
 
   // LOGOUT ==============================
@@ -31,34 +36,97 @@ module.exports = function (app, passport, db) {
   });
 
   // process the login form
-  app.post(
-    "/login",
-    passport.authenticate("local-login", {
-      successRedirect: "/mainPage", // redirect to the fprofusecure mainPage section
-      failureRedirect: "/login", // redirect back to the signup page if there is an error
-      failureFlash: true, // allow flash messages
-    })
+  app.post( "/login", function(req, res, next) {
+    passport.authenticate('local-login', function(err, user, info) {
+      if (err) {
+        return next(err); // will generate a 500 error
+      }
+      // Generate a JSON response reflecting authentication status
+      if (! user) {
+        return res.send(401,{ success : false, message : 'authentication failed' });
+      }
+      req.login(user, function(err){
+        if(err){
+          return next(err);
+        }
+        const url = req.user.local.userType === "teacher"? "/teacherPage": "/studentPage"
+        res.redirect(url);      });
+    })(req, res, next);
+  }
+  
   );
 
   // SIGNUP =================================
   // show the signup form
-  app.get("/signupParent", function (req, res) {
-    res.render("signupParent.ejs", { message: req.flash("signupMessage") });
+  app.get("/signupTeacher", function (req, res) {
+    res.render("signupTeacher.ejs", { message: req.flash("signupMessage") });
   });
-  app.get("/signupKid", function (req, res) {
-    res.render("signupKid.ejs", { message: req.flash("signupMessage") });
+  app.get("/signupStudent", function (req, res) {
+    res.render("signupStudent.ejs", { message: req.flash("signupMessage") });
   });
 
   // process the signup form
-  app.post(
-    "/signup",
-    passport.authenticate("local-signup", {
-      successRedirect: "/mainPage", // redirect to the secure mainPage section
-      failureRedirect: "/signup", // redirect back to the signup page if there is an error
-      failureFlash: true, // allow flash messages
-    })
-  );
+  app.post("/signup",function(req, res, next) {
+    passport.authenticate('local-signup', function(err, user, info) {
+      if (err) {
+        return next(err); // will generate a 500 error
+      }
+      // Generate a JSON response reflecting authentication status
+      if (! user) {
+        return res.send(401,{ success : false, message : 'authentication failed' });
+      }
+      req.login(user, function(err){
+        if(err){
+          return next(err);
+        }
+        const url = req.user.local.userType === "teacher"? "/teacherPage": "/studentPage"
+        res.redirect(url);      });
+    })(req, res, next);
+  }
+  
+  ); 
+  
 
+  app.post('/addCourse', (req, res) => { //when the user is creating a goal that is when the POST /goals is happening, we are inserting in the db collection
+    console.log(req.body)
+    db.collection('course').insertOne({
+      ...req.body, 
+      teacherID:ObjectId(req.user.local._id)
+    }, (err, result) => {
+      if (err) return console.log(err) // shorthand of an if/else console
+      console.log('saved to database') // this is the else  
+      res.redirect('/') // index.ejs (show coffe selection)
+    })
+  })
+
+  
+
+  // app.put('/goal-finish', (req, res) => { // put = update 
+  //   console.log("Here's the body",req.body)
+  //   db.collection('orders')
+  //   .findOneAndUpdate({
+  //     _id: ObjectID(req.body._id)
+  //   }, {
+  //     $set: {
+  //       complete: true,
+  //       thisUser : req.user.local.firstName
+  //     }
+  //   }, {
+  //     sort: {_id: -1},
+  //     upsert: true
+  //   }, (err, result) => {
+  //     if (err) return res.send(err)
+  //     res.send(result)
+  //   })
+  // })
+
+  // app.delete('/goal', (req, res) => {
+  //   db.collection('orders').findOneAndDelete({_id: ObjectID(req.body._id)}, (err, result) => {
+  //     if (err) return res.send(500, err)
+  //     res.send('Message deleted!')
+  //   })
+  // })
+  
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
 
