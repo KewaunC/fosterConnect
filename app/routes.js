@@ -13,11 +13,9 @@ module.exports = function (app, passport, db, ObjectId) {
     
   });
   app.get("/studentPage", isLoggedIn, function (req, res) {
-    console.log(req.user.local)
     db.collection('course').find().toArray((err, result) => { 
       if (err) return console.log(err)
-      console.log(result)
-        res.render("student.ejs", {
+           res.render("student.ejs", {
           user: req.user,
           courses: result, // result comes form the database // want the results from the currently logged in user 
           isStudent: req.user.userType === "student", // req.user is provided by passoport and provides access to the logged in user obj 
@@ -99,7 +97,17 @@ module.exports = function (app, passport, db, ObjectId) {
     })
   })
 
-  
+  app.post('/roster', (req, res) => { //when the user is creating a goal that is when the POST /goals is happening, we are inserting in the db collection    
+    console.log(req.user._id, "ADD ROSTER")
+    db.collection('roster').insertOne({ // ... means  to add outer obj to curretn obj 
+      ...req.body, 
+      studentID:ObjectId(req.user._id)
+    }, (err, result) => {
+      if (err) return console.log(err) // shorthand of an if/else console
+      console.log('saved to database') // this is the else  
+      res.redirect('/') // index.ejs (show coffe selection)
+    })
+  })
 
   // app.put('/goal-finish', (req, res) => { // put = update 
   //   console.log("Here's the body",req.body)
@@ -120,12 +128,13 @@ module.exports = function (app, passport, db, ObjectId) {
   //   })
   // })
 
-  // app.delete('/goal', (req, res) => {
-  //   db.collection('orders').findOneAndDelete({_id: ObjectID(req.body._id)}, (err, result) => {
-  //     if (err) return res.send(500, err)
-  //     res.send('Message deleted!')
-  //   })
-  // })
+  app.delete('/roster', (req, res) => {
+    console.log("delete from roster")
+    db.collection('roster').findOneAndDelete({courseID:req.body.courseID,studentID:ObjectId(req.user._id)}, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Message deleted!')
+    })
+  })
   
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
