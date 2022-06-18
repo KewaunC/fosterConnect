@@ -7,7 +7,7 @@
 </head>
 <body>
   
-<h1>Hello <%= user %></h1>
+<h1>Hello <%= user.local.firstName %></h1>
 
 <form>
   <label for="className">Class Name:</label><br>
@@ -17,10 +17,10 @@
   <input type="text" id="category" name="category"><br>
 
   <label for="className">Capacity:</label><br>
-  <input type="text" id="capacity" name="className"><br>
+  <input type="number" id="capacity" name="className"><br>
 
   <label for="courseLength">Course Length:</label><br>
-  <input type="text" id="courseLength" name="courseLength"><br>
+  <input type="number" id="courseLength" name="courseLength"><br>
 
   <label for="lname">Description:</label><br>
   <textarea type="text" id="description" name="description"></textarea><br><br>  
@@ -29,7 +29,42 @@
 
 </form> 
 
+<section class="container">
+  <div>
+    <h1>Welcome to the Dashboard</h1>
+  </div>
 
+  <h2>Courses!</h2>
+
+  <ul class="courseList">
+      <% for(let i=0; i<courses.length; i++) {
+        let completedClass = ''
+        if(courses[i].complete){
+          completedClass = 'completed'
+        }
+        %>
+        <li id="<%=courses[i]._id %>"class="orderUp <%= completedClass %>">  
+          <span class="kidName"><%=courses[i].name %></span>
+          <span><%= courses[i].className %></span> <!--button type where when they clickc on it it will get added to current coures-->
+          <span><%= courses[i].capacity %></span>
+          <span><%= courses[i].category %></span>
+          <span><%= courses[i].courseLength %></span>
+          <p><%= courses[i].description %></p>
+          
+          <a href= 'edit?id=<%=courses[i]._id %>'><button class="edit" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Edit Course</button></a>
+          <button class="delete" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Delete Course</button>         <!--ADD/Drop adding propert called data course ID and storing the value of course ID--> 
+       
+        </li>
+      <% } %>
+      
+  </ul>  
+
+</section>
+
+
+<div>
+
+</div>
 
 <script src="/teacher.js"></script>
 </body>

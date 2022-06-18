@@ -4,31 +4,7 @@
   padding: 0;
 }
 body, html {
-  height: 100%;
-  margin: 0;
-  background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+  background: linear-gradient(to left,  rgba(34,193,195,1),rgba(253,187,45,1));
   background-repeat: no-repeat;
   background-attachment: fixed;
-}
-
-body{
-  background: linear-gradient(to left,  rgba(34,193,195,1),rgba(253,187,45,1));
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	font-family: 'Lato';
-	margin: 0;
-}
-
-.wrapper{
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-.form-group{
-  margin-top: 1%;
 }

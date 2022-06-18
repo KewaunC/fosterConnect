@@ -1,4 +1,8 @@
+const e = require("connect-flash");
+
 const button = document.querySelector("#submit");
+const remove = document.querySelector("#delete")
+const edit = document.querySelector('#edit')
 const className = document.querySelector("#className")
 const category = document.querySelector("#category")
 const capacity = document.querySelector("#capacity")
@@ -22,3 +26,5 @@ button.addEventListener("click", async (e) =>{
   console.log("Not working")
  }
 })
+
+
