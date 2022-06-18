@@ -1,5 +1,3 @@
-const ObjectId = require('mongodb').ObjectId;
-
 module.exports = function (app, passport, db, ObjectId) {
   app.get("/", function (req, res) {
     res.render("login.ejs");
@@ -50,6 +48,21 @@ module.exports = function (app, passport, db, ObjectId) {
   app.get("/login", function (req, res) {
     res.render("login.ejs", { message: req.flash("loginMessage") });
   });
+
+  app.get ("/courses/:courseName/:id", function(req,res){
+    console.log(req.params, req.query, "params")
+    db.collection("course")
+    .find({_id:ObjectId(req.params.id)})
+    .toArray((err, result) => {
+      if (err) return console.log(err);
+      console.log(result)
+      res.render("course.ejs", {
+        course:result[0],user:req.user
+        
+      });
+    }); 
+    
+  }) 
 
   // process the login form
   app.post("/login", function (req, res, next) {
@@ -144,25 +157,6 @@ module.exports = function (app, passport, db, ObjectId) {
       }
     );
   });
-
-  // app.put('/goal-finish', (req, res) => { // put = update
-  //   console.log("Here's the body",req.body)
-  //   db.collection('orders')
-  //   .findOneAndUpdate({
-  //     _id: ObjectID(req.body._id)
-  //   }, {
-  //     $set: {
-  //       complete: true,
-  //       thisUser : req.user.local.firstName
-  //     }
-  //   }, {
-  //     sort: {_id: -1},
-  //     upsert: true
-  //   }, (err, result) => {
-  //     if (err) return res.send(err)
-  //     res.send(result)
-  //   })
-  // })
 
   app.delete("/roster", (req, res) => {
     console.log("delete from roster");

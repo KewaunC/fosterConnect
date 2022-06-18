@@ -3,7 +3,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parent Dashboard</title>
+  <title>Teacher Dashboard</title>
 </head>
 <body>
   <header>
@@ -48,7 +48,7 @@
           completedClass = 'completed'
         }
         %>
-          <li><%= courses[i].className %></li> <!--button type where when they clickc on it it will get added to current coures-->
+          <a href ='/courses/<%= courses[i].className %>/<%= courses[i]._id %>'><li><%= courses[i].className %></li></a> <!--button type where when they clickc on it it will get added to current coures-->
           <li><%= courses[i].capacity %></li>
           <li><%= courses[i].category %></li>
           <li><%= courses[i].courseLength %></li>
@@ -57,14 +57,14 @@
           <a href= 'edit?id=<%=courses[i]._id %>'><button class="edit" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Edit Course</button></a>
           
           <button class="delete" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Delete Course</button>         <!--ADD/Drop adding propert called data course ID and storing the value of course ID--> 
-       
+
+                
         </li>
       <% } %>
       
   </ul>  
 
 </section>
-
 
 <div>
 
