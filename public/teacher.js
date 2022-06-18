@@ -1,13 +1,10 @@
-const e = require("connect-flash");
-
 const button = document.querySelector("#submit");
-const remove = document.querySelector("#delete")
-const edit = document.querySelector('#edit')
 const className = document.querySelector("#className")
 const category = document.querySelector("#category")
 const capacity = document.querySelector("#capacity")
 const courseLength = document.querySelector("#courseLength")
 const description = document.querySelector("#description")
+const allDeleteButtons = document.getElementsByClassName('delete')
 
 button.addEventListener("click", async (e) =>{
   e.preventDefault()
@@ -27,4 +24,6 @@ button.addEventListener("click", async (e) =>{
  }
 })
 
-
+function(destroy){
+  allDeleteButtons.forEach(deleteButton => deleteButton.addEventListener('click', remove))
+}

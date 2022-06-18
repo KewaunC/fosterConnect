@@ -3,10 +3,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Parent Dashboard</title>
 </head>
 <body>
-  
+  <header>
+    <div>
+      <h1>Welcome to the Dashboard</h1>
+    </div>
+
+    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+  </header>
+
 <h1>Hello <%= user.local.firstName %></h1>
 
 <form>
@@ -30,9 +37,7 @@
 </form> 
 
 <section class="container">
-  <div>
-    <h1>Welcome to the Dashboard</h1>
-  </div>
+
 
   <h2>Courses!</h2>
 
@@ -43,15 +48,14 @@
           completedClass = 'completed'
         }
         %>
-        <li id="<%=courses[i]._id %>"class="orderUp <%= completedClass %>">  
-          <span class="kidName"><%=courses[i].name %></span>
-          <span><%= courses[i].className %></span> <!--button type where when they clickc on it it will get added to current coures-->
-          <span><%= courses[i].capacity %></span>
-          <span><%= courses[i].category %></span>
-          <span><%= courses[i].courseLength %></span>
+          <li><%= courses[i].className %></li> <!--button type where when they clickc on it it will get added to current coures-->
+          <li><%= courses[i].capacity %></li>
+          <li><%= courses[i].category %></li>
+          <li><%= courses[i].courseLength %></li>
           <p><%= courses[i].description %></p>
           
           <a href= 'edit?id=<%=courses[i]._id %>'><button class="edit" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Edit Course</button></a>
+          
           <button class="delete" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Delete Course</button>         <!--ADD/Drop adding propert called data course ID and storing the value of course ID--> 
        
         </li>
@@ -65,6 +69,8 @@
 <div>
 
 </div>
+
+
 
 <script src="/teacher.js"></script>
 </body>
