@@ -1,35 +1,17 @@
-let add = document.getElementsByClassName("add");
-let drop = document.getElementsByClassName("drop");
+const button = document.querySelectorAll('.drop')
 
-
-Array.from(add).forEach(function(element) {
-  element.addEventListener('click', function(e){
-    const courseID = e.target.dataset.courseid
-    const teacherID = e.target.dataset.teacherid
-      fetch('/roster', {
-      method: 'POST',
+Array.from(button).forEach(function(element) {
+  element.addEventListener('click', function(){
+    console.log(this.parentNode.childNodes[1].innerText, "check here")
+    const title = this.parentNode.childNodes[1].innerText
+    fetch('removeClass', {
+      method: 'delete', 
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        courseID, teacherID    
-      })
+        'classTitle': title,
+            })
     }).then(function (response) {
-      // window.location.reload()
-    
-    })
-  });
-});
-
-Array.from(drop).forEach(function(element) {
-  element.addEventListener('click', function(e){
-    const courseID = e.target.dataset.courseid
-    fetch('/roster', {
-      method: 'delete',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        courseID
-      })
-    }).then(function (response) {
-      // window.location.reload()
+      window.location.reload()
     
     })
   });

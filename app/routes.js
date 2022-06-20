@@ -5,7 +5,7 @@ module.exports = function (app, passport, db, ObjectId) {
 
   app.get("/teacherPage", isLoggedIn, function (req, res) {
     db.collection("course")
-      .find()
+      .find({ teacherID: req.user._id })
       .toArray((err, result) => {
         if (err) return console.log(err);
         res.render("teacher.ejs", {
@@ -127,16 +127,21 @@ module.exports = function (app, passport, db, ObjectId) {
 
   app.post("/addCourse", (req, res) => {
     //when the user is creating a goal that is when the POST /goals is happening, we are inserting in the db collection
-    console.log(req.body);
+    console.log(req.user.id);
     db.collection("course").insertOne(
       {
-        ...req.body,
-        teacherID: ObjectId(req.user.local._id),
+        className: req.body.className,
+        capacity: req.body.capacity,
+        category: req.body.category,
+        courseLength: req.body.courseLength,
+        checklist: req.body.checklist,      
+        description: req.body.description,
+        teacherID: req.user._id
       },
       (err, result) => {
         if (err) return console.log(err); // shorthand of an if/else console
         console.log("saved to database"); // this is the else
-        res.redirect("/"); // index.ejs (show coffe selection)
+        res.redirect("/teachePage"); // index.ejs (show coffe selection)
       }
     );
   });
@@ -168,6 +173,13 @@ module.exports = function (app, passport, db, ObjectId) {
       }
     );
   });
+
+  app.delete('/removeClass', (req, res) => {
+    db.collection('course').findOneAndDelete({className: req.body.classTitle}, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Message deleted!')
+    })
+  })
 
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();

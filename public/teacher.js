@@ -1,29 +1,18 @@
-const button = document.querySelector("#submit");
-const className = document.querySelector("#className")
-const category = document.querySelector("#category")
-const capacity = document.querySelector("#capacity")
-const courseLength = document.querySelector("#courseLength")
-const description = document.querySelector("#description")
-const allDeleteButtons = document.getElementsByClassName('delete')
+const button = document.querySelectorAll('.delete')
 
-button.addEventListener("click", async (e) =>{
-  e.preventDefault()
-  try{ await fetch("/addCourse", {
-    method:"POST",
-    headers:{'Content-Type':"application/json"}
-    ,body:JSON.stringify( {
-      className: className.value, 
-      capacity: capacity.value,
-      category: category.value,
-      courseLength: courseLength.value,
-      description: description.value
-    }) 
-  })}
- catch(err){
-  console.log("Not working")
- }
-})
-
-function(destroy){
-  allDeleteButtons.forEach(deleteButton => deleteButton.addEventListener('click', remove))
-}
+Array.from(button).forEach(function(element) {
+  element.addEventListener('click', function(){
+    console.log(this.parentNode.childNodes[1], "check here")
+    const title = this.parentNode.childNodes[1].innerText
+    fetch('removeClass', {
+      method: 'delete',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        'classTitle': title,
+            })
+    }).then(function (response) {
+      // window.location.reload()
+    
+    })
+  });
+});
