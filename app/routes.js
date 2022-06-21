@@ -136,12 +136,13 @@ module.exports = function (app, passport, db, ObjectId) {
         courseLength: req.body.courseLength,
         checklist: req.body.checklist,      
         description: req.body.description,
-        teacherID: req.user._id
+        teacherID: req.user._id,
+        status: 'In Progress'
       },
       (err, result) => {
         if (err) return console.log(err); // shorthand of an if/else console
         console.log("saved to database"); // this is the else
-        res.redirect("/teachePage"); // index.ejs (show coffe selection)
+        res.redirect("/teacherPage"); // index.ejs (show coffe selection)
       }
     );
   });
@@ -175,9 +176,22 @@ module.exports = function (app, passport, db, ObjectId) {
   });
 
   app.delete('/removeClass', (req, res) => {
-    db.collection('course').findOneAndDelete({className: req.body.classTitle}, (err, result) => {
+    db.collection('course').findOneAndDelete({
+      _id: ObjectId(req.body._id)
+    }, (err, result) => {
       if (err) return res.send(500, err)
       res.send('Message deleted!')
+    })
+  })
+
+  app.put('/addClass', (req, res) => {
+    db.collection('course').findOneAndUpdate({
+      _id: ObjectId(req.body._id)
+    }, { $set: {
+      status: 'Complete'
+    }}, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Status Update!')
     })
   })
 

@@ -48,12 +48,8 @@
   <h2>Courses!</h2>
 
   <ul class="courseList">
-      <% for(let i=0; i<courses.length; i++) {
-        let completedClass = ''
-        if(courses[i].complete){
-          completedClass = 'completed'
-        }
-        %>
+    <% for(let i=0; i<courses.length; i++) { %>
+      <% if(courses[i].status === 'In Progress' ){ %>
         <div class = "course">
             <a href ='/courses/<%= courses[i].className %>/<%= courses[i]._id %>'><%= courses[i].className %></a> <!--button type where when they clickc on it it will get added to current coures-->
           
@@ -68,6 +64,7 @@
 
            </div>
         </li>
+      <% } %>
       <% } %>      
   </ul>  
 </section>
