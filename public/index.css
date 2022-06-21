@@ -7,4 +7,41 @@ body, html {
   background: linear-gradient(to left,  rgba(34,193,195,1),rgba(253,187,45,1));
   background-repeat: no-repeat;
   background-attachment: fixed;
+  
+}
+.title{
+  text-align: center;
+}
+.container{
+  display: grid;
+  align-items: center;
+  width: 200px;
+}
+.email, .password, button {
+  margin-top: 1rem;
+  display:flex;
+  align-items: center;
+  flex-direction:column;
+}
+
+.signup a{
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.aboutMe, .missionStatement{
+  margin-left: 2rem;
+  width: 50%;
+  margin-top: 1rem;
+}
+.importance{
+  text-align: center;
+  margin-top: 1rem;
+  width: 40%;
+}
+
+footer{
+  text-align: center;
+  margin-top: 3rem;
 }

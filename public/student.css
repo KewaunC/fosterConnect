@@ -1,0 +1,9 @@
+*{
+  box-sizing: border-box;
+
+}
+
+.left{
+  width: 50%;
+  float: left;
+}
