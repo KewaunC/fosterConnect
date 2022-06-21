@@ -136,12 +136,13 @@ module.exports = function (app, passport, db, ObjectId) {
         courseLength: req.body.courseLength,
         checklist: req.body.checklist,      
         description: req.body.description,
-        teacherID: req.user._id
+        teacherID: req.user._id,
+        status: 'In Progress'
       },
       (err, result) => {
         if (err) return console.log(err); // shorthand of an if/else console
         console.log("saved to database"); // this is the else
-        res.redirect("/teachePage"); // index.ejs (show coffe selection)
+        res.redirect("/teacherPage"); // index.ejs (show coffe selection)
       }
     );
   });
