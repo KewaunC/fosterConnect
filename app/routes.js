@@ -176,9 +176,22 @@ module.exports = function (app, passport, db, ObjectId) {
   });
 
   app.delete('/removeClass', (req, res) => {
-    db.collection('course').findOneAndDelete({className: req.body.classTitle}, (err, result) => {
+    db.collection('course').findOneAndDelete({
+      _id: ObjectId(req.body._id)
+    }, (err, result) => {
       if (err) return res.send(500, err)
       res.send('Message deleted!')
+    })
+  })
+
+  app.put('/addClass', (req, res) => {
+    db.collection('course').findOneAndUpdate({
+      _id: ObjectId(req.body._id)
+    }, { $set: {
+      status: 'Complete'
+    }}, (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Status Update!')
     })
   })
 
