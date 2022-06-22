@@ -201,7 +201,7 @@ module.exports = function (app, passport, db, ObjectId) {
   app.delete("/removeClass", (req, res) => {
     db.collection("course").findOneAndDelete(
       {
-        _id: ObjectId(req.body._id),
+        className: req.body.classTitle,
       },
       (err, result) => {
         if (err) return res.send(500, err);

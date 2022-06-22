@@ -33,9 +33,11 @@
   <p>Description:<%= courses[i].description %></p>
   <input type="text"class="formInput" name="description">
   
-  <textarea>Checklist:<%= courses[i].checklist %></textarea>
-  <input type="text"class="formInput" name="checklist">
-
+  <div class="right">
+     <textarea class="formInput name="checklist">Checklist:<%= courses[i].checklist %></textarea>
+  
+</div>
+  
   <button id="submit" data-id="<%= courses[i]._id%>">Save Edit</button>
 <!-- </form>  -->
 <% } %>

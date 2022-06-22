@@ -10,68 +10,76 @@
 <body>
   
   <header>
+    <div></div> 
+
     <div>
-      <h1>Welcome to your Dashboard</h1>
+      <h1>Welcome to Social Worker Dashboard</h1>
     </div>
 
-    <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    <a href="/logout" class="logout btn btn-default btn-sm" >Logout</a>
   </header>
 
+  <p class="info">Please fill out this form to include any classes that your Foster Youth should know about!</p>
+
   <section class="left">
-<h1>Hello <%= user.local.firstName %></h1>
+      <h1>Hello <%= user.local.firstName %></h1>
 
-<form method="POST" action="/addCourse">
-  <label for="className">Class Name:</label><br>
-  <input type="text" id="className" name="className"><br>
+      <form method="POST" action="/addCourse">
+        <label for="className">Class Name:</label><br>
+        <input type="text" id="className" name="className"><br>
+      
+        <label for="Category">Category:</label><br>
+        <input type="text" id="category" name="category"><br>
+      
+        <label for="className">Capacity:</label><br>
+        <input type="text" id="capacity" name="capacity"><br>
+      
+        <label for="courseLength">Course Length:</label><br>
+        <input type="text" id="courseLength" name="courseLength"><br>
+      
+        <label for="checklist">Checklist:</label><br>
+        <textarea type="text" id="description" name="checklist"></textarea><br>   
+      
+      
+        <label for="lname">Description:</label><br>
+        <textarea type="text" id="description" name="description"></textarea><br><br>  
+      
+        <button id="submit" type="submit">Submit Class</button>
 
-  <label for="Category">Category:</label><br>
-  <input type="text" id="category" name="category"><br>
-
-  <label for="className">Capacity:</label><br>
-  <input type="text" id="capacity" name="capacity"><br>
-
-  <label for="courseLength">Course Length:</label><br>
-  <input type="text" id="courseLength" name="courseLength"><br>
-
-  <label for="checklist">Checklist:</label><br>
-  <textarea type="text" id="description" name="checklist"></textarea><br>   
- 
-
-  <label for="lname">Description:</label><br>
-  <textarea type="text" id="description" name="description"></textarea><br><br>  
-
-  <button id="submit" type="submit">Submit Class</button>
-
-</form> 
+      </form> 
 </section>
 
 
 <section class="container">
+    <h2>Courses!</h2>
 
-  <h2>Courses!</h2>
+    <ul class="courseList">
+      <% for(let i=0; i<courses.length; i++) { %>
+        <% if(courses[i].status === 'In Progress' ){ %>
+          <div class = "course">
+              <li><%= courses[i].className %></li>
+              <li><%= courses[i].category %></li>
+              <li><%= courses[i].capacity %></li>         
+              <li><%= courses[i].courseLength %></li>
+              <p class = "checkList"><%= courses[i].checklist %></p>
+              <p><%= courses[i].description %></p>
+          
+              <a href= 'edit/<%=courses[i]._id %>'><button class="edit" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Edit Course</button></a>
 
-  <ul class="courseList">
-    <% for(let i=0; i<courses.length; i++) { %>
-      <% if(courses[i].status === 'In Progress' ){ %>
-        <div class = "course">
-            <li><%= courses[i].className %></li>
-            <li><%= courses[i].category %></li>
-            <li><%= courses[i].capacity %></li>         
-            <li><%= courses[i].courseLength %></li>
-            <p class = "checkList"><%= courses[i].checklist %></p>
-            <p><%= courses[i].description %></p>
-         
-            <a href= 'edit/<%=courses[i]._id %>'><button class="edit" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Edit Course</button></a>
-            
-            <button class="delete" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Delete Course</button>  
+              <button class="delete" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Delete Course</button>  
 
-           </div>
-        </li>
-      <% } %>
-      <% } %>      
-  </ul>  
+             </div>
+          </li>
+        <% } %>
+        <% } %>      
+    </ul>  
 </section>
 
+<section class="right">
+  img
+</section>
+
+</section>
 
 <script src="/teacher.js"></script>
 </body>
