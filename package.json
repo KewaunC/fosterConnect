@@ -21,8 +21,10 @@
     "socketio": "^1.0.0"
   },
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "next start -p ${PORT}",
+    "dev": "nodemon server.js",
+    "prestart": "next build"
+    
   },
   "name": "demoday",
   "version": "1.0.0",
