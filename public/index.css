@@ -4,44 +4,48 @@
   padding: 0;
 }
 body, html {
-  background: linear-gradient(to left,  rgba(34,193,195,1),rgba(253,187,45,1));
+  background: linear-gradient(to left, rgba(253,187,45,1), rgba(34,193,195,1));
   background-repeat: no-repeat;
   background-attachment: fixed;
-  
+  margin-left: 1rem;
+ }
+
+h1, h3{
+  color: #e06424;
 }
-.title{
-  text-align: center;
+h2{
+  color: white;
 }
-.container{
-  display: grid;
-  align-items: center;
-  width: 200px;
+p{
+  color: purple;  
 }
-.email, .password, button {
+
+img{
+  max-width:90%;
+  height:auto;
+  margin-left: 3rem;
+}
+
+.left{
+  width: 60%;
+  float: left;
+  margin-top: 1rem;
+}
+.right{
+  width: 40%;
+  float: left;
+}
+
+.email, .password, button, h3, .signup a {
   margin-top: 1rem;
   display:flex;
   align-items: center;
   flex-direction:column;
 }
-
-.signup a{
-  display: block;
-  text-align: center;
+.aboutMe, .importance, .missionStatement{
   margin-top: 1rem;
 }
 
-.aboutMe, .missionStatement{
-  margin-left: 2rem;
-  width: 50%;
-  margin-top: 1rem;
-}
-.importance{
-  text-align: center;
-  margin-top: 1rem;
-  width: 40%;
-}
-
-footer{
-  text-align: center;
-  margin-top: 3rem;
+footer{  
+  text-align: center;  
 }

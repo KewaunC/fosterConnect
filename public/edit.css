@@ -6,24 +6,17 @@ body, html {
   background: linear-gradient(to left,  rgba(34,193,195,1),rgba(253,187,45,1));
   background-repeat: no-repeat;
   background-attachment: fixed;
- }
-
-.left, .container{
-  float: left;
 }
 
-.left{
+.form{
   text-align: center;
-  width: 30%;
 }
-
-.edit, .delete{
+button{
   display: flex;
   justify-content: center;
   align-items: center;  
-  margin-top: 0.5rem;
+  margin-left: 47%;
+  margin-top: 1rem;
   text-decoration: none;
 }
-textarea{
-  resize: vertical;
-}
+ 

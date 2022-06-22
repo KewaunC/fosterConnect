@@ -11,12 +11,13 @@
   
   <header>
     <div>
-      <h1>Welcome to the Dashboard</h1>
+      <h1>Welcome to your Dashboard</h1>
     </div>
 
     <a href="/logout" class="btn btn-default btn-sm">Logout</a>
   </header>
 
+  <section class="left">
 <h1>Hello <%= user.local.firstName %></h1>
 
 <form method="POST" action="/addCourse">
@@ -42,11 +43,10 @@
   <button id="submit" type="submit">Submit Class</button>
 
 </form> 
-
+</section>
 
 
 <section class="container">
-
 
   <h2>Courses!</h2>
 
@@ -54,7 +54,7 @@
     <% for(let i=0; i<courses.length; i++) { %>
       <% if(courses[i].status === 'In Progress' ){ %>
         <div class = "course">
-            <%= courses[i].className %> 
+            <li><%= courses[i].className %></li>
             <li><%= courses[i].category %></li>
             <li><%= courses[i].capacity %></li>         
             <li><%= courses[i].courseLength %></li>
