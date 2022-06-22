@@ -7,23 +7,33 @@
   <title>Edit Page</title>
 </head>
 <body>
-  
+    
+  <header>
+    <a href="/teacherPage" class="btn btn-default btn-sm">Return to Dashboard</a>
+  </header>
+
   <h1>Edit Courses</h1>
+  <% for(let i=0; i<courses.length; i++) { %>
 
-<form action="">
-  <span><%= course.capacity %></span>
-  <input type="number">
- 
-  <input type="text">
-  <span><%= course.capacity %></span>
-  <input type="text">
-  <span><%= course.category %></span>
-  <input type="text">
-  <span><%= course.courseLength %></span>
-  <input type="text">
-  <p><%= course.description %></p>
-</form> 
 
-<script src="edit.js"></script>
+<!-- <form action="/edit" method="PUT"> -->
+
+  <p>Category:<%= courses[i].category %></p>
+  <input type="text" class="formInput" name="category">
+  <p>Capacity:<%= courses[i].capacity %></p>
+  <input type="text"class="formInput" name="capacity">
+  <p>Course Length:<%= courses[i].courseLength %></p>
+  <input type="text"class="formInput" name="courseLength">
+  <p>Description:<%= courses[i].description %></p>
+  <input type="text"class="formInput" name="description">
+  <p>Checklist:<%= courses[i].checklist %></p>
+  <input type="text"class="formInput" name="checklist">
+
+  <button id="submit" data-id="<%= courses[i]._id%>">Button</button>
+<!-- </form>  -->
+<% } %>
+
+<script src="/edit.js"></script>
 </body>
 </html>
+

@@ -6,7 +6,9 @@
   <link rel="stylesheet" href="teacher.css">
   <title>Social Worker Dashboard</title>
 </head>
+
 <body>
+  
   <header>
     <div>
       <h1>Welcome to the Dashboard</h1>
@@ -59,7 +61,7 @@
             <p><%= courses[i].checklist %></p>
             <p><%= courses[i].description %></p>
          
-            <a href= 'edit?id=<%=courses[i]._id %>'><button class="edit" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Edit Course</button></a>
+            <a href= 'edit/<%=courses[i]._id %>'><button class="edit" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Edit Course</button></a>
             
             <button class="delete" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Delete Course</button>         <!--ADD/Drop adding propert called data course ID and storing the value of course ID--> 
 

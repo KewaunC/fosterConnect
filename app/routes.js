@@ -29,14 +29,38 @@ module.exports = function (app, passport, db, ObjectId) {
       });
   });
 
-  app.get("/edit", isLoggedIn, function (req, res) {
-    console.log(req.query.id)
+  app.get("/edit/:id", isLoggedIn, function (req, res) {
+    console.log(req.params.id);
     db.collection("course")
-      .find({ _id: ObjectId(req.query.id)})
-      .tryNext((err, result) => {
+      .find({ _id: ObjectId(req.params.id) })
+      .toArray((err, result) => {
         if (err) return console.log(err);
-        res.render("edit.ejs", {course: result});
+        console.log(result);
+        res.render("edit.ejs", { courses: result });
       });
+  });
+  app.put("/edit/:id", isLoggedIn, function (req, res) {
+    const id = req.params.id;
+    console.log("Incoming Edit");
+    db.collection("course").findOneAndUpdate(
+      {
+        _id: ObjectId(id),
+      },
+      {
+        $set: {
+          className: req.body.className,
+          capacity: req.body.capacity,
+          category: req.body.category,
+          courseLength: req.body.courseLength,
+          checklist: req.body.checklist,
+          description: req.body.description,
+        },
+      },
+      (err, result) => {
+        if (err) return res.send(500, err);
+        res.send("Status Update!");
+      }
+    );
   });
 
   // LOGOUT ==============================
@@ -49,20 +73,19 @@ module.exports = function (app, passport, db, ObjectId) {
     res.render("login.ejs", { message: req.flash("loginMessage") });
   });
 
-  app.get ("/courses/:courseName/:id", function(req,res){
-    console.log(req.params, req.query, "params")
+  app.get("/courses/:courseName/:id", function (req, res) {
+    console.log(req.params, req.query, "params");
     db.collection("course")
-    .find({_id:ObjectId(req.params.id)})
-    .toArray((err, result) => {
-      if (err) return console.log(err);
-      console.log(result)
-      res.render("course.ejs", {
-        course:result[0],user:req.user
-        
+      .find({ _id: ObjectId(req.params.id) })
+      .toArray((err, result) => {
+        if (err) return console.log(err);
+        console.log(result);
+        res.render("course.ejs", {
+          course: result[0],
+          user: req.user,
+        });
       });
-    }); 
-    
-  }) 
+  });
 
   // process the login form
   app.post("/login", function (req, res, next) {
@@ -134,10 +157,10 @@ module.exports = function (app, passport, db, ObjectId) {
         capacity: req.body.capacity,
         category: req.body.category,
         courseLength: req.body.courseLength,
-        checklist: req.body.checklist,      
+        checklist: req.body.checklist,
         description: req.body.description,
         teacherID: req.user._id,
-        status: 'In Progress'
+        status: "In Progress",
       },
       (err, result) => {
         if (err) return console.log(err); // shorthand of an if/else console
@@ -175,25 +198,34 @@ module.exports = function (app, passport, db, ObjectId) {
     );
   });
 
-  app.delete('/removeClass', (req, res) => {
-    db.collection('course').findOneAndDelete({
-      _id: ObjectId(req.body._id)
-    }, (err, result) => {
-      if (err) return res.send(500, err)
-      res.send('Message deleted!')
-    })
-  })
+  app.delete("/removeClass", (req, res) => {
+    db.collection("course").findOneAndDelete(
+      {
+        _id: ObjectId(req.body._id),
+      },
+      (err, result) => {
+        if (err) return res.send(500, err);
+        res.send("Message deleted!");
+      }
+    );
+  });
 
-  app.put('/addClass', (req, res) => {
-    db.collection('course').findOneAndUpdate({
-      _id: ObjectId(req.body._id)
-    }, { $set: {
-      status: 'Complete'
-    }}, (err, result) => {
-      if (err) return res.send(500, err)
-      res.send('Status Update!')
-    })
-  })
+  app.put("/addClass", (req, res) => {
+    db.collection("course").findOneAndUpdate(
+      {
+        _id: ObjectId(req.body._id),
+      },
+      {
+        $set: {
+          status: "Complete",
+        },
+      },
+      (err, result) => {
+        if (err) return res.send(500, err);
+        res.send("Status Update!");
+      }
+    );
+  });
 
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();

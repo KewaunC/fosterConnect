@@ -4,3 +4,9 @@
   margin: 0;
 }
 
+body, html {
+  background: linear-gradient(to left,  rgba(34,193,195,1),rgba(253,187,45,1));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+ }
+
