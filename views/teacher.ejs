@@ -58,7 +58,7 @@
             <li><%= courses[i].category %></li>
             <li><%= courses[i].capacity %></li>         
             <li><%= courses[i].courseLength %></li>
-            <p><%= courses[i].checklist %></p>
+            <p class = "checkList"><%= courses[i].checklist %></p>
             <p><%= courses[i].description %></p>
          
             <a href= 'edit/<%=courses[i]._id %>'><button class="edit" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Edit Course</button></a>

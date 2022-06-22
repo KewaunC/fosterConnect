@@ -10,6 +10,7 @@ body, html {
 
 .form{
   text-align: center;
+  width: 110px;
 }
 button{
   display: flex;

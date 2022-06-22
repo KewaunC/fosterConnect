@@ -16,7 +16,9 @@ body, html {
   text-align: center;
   width: 30%;
 }
-
+.container li{
+ text-decoration: none;
+}
 .edit, .delete{
   display: flex;
   justify-content: center;
@@ -26,4 +28,12 @@ body, html {
 }
 textarea{
   resize: vertical;
+}
+.course{
+  list-style: none;
+}
+
+.checkList{
+  display: flex;
+  flex-direction: column;
 }
