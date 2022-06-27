@@ -15,13 +15,13 @@
   <header>
     <div></div>
 
-  <h1>Hello <%= user.local.firstName %>, welcome to your student dashboard
+  <h1>Hello <%= user.local.firstName %>, Welcome To Your Student Dashboard
   </h1>
 
   <a href="/logout" class="btn btn-default btn-sm">Logout</a>
 
 </header>
-
+<div class= "bigContainer">
   <section class="left">
     <h2>Open Courses!</h2>
 
@@ -36,7 +36,6 @@
             <span>
               <%= courses[i].className %>
             </span>
-            <!--button type where when they clickc on it it will get added to current coures-->
             <span>
               <%= courses[i].capacity %>
             </span>
@@ -49,9 +48,8 @@
             <p>
               <%= courses[i].description %>
             </p>
-            <button class="add">JoinCourse</button>
-            <button class="drop" >Leave Course</button>
-            <!--ADD/Drop adding propert called data course ID and storing the value of course ID-->
+            <button class="add">Join Course</button>
+        
           </li>
           <% } %>
             <% } %>
@@ -66,28 +64,12 @@
         <% if(courses[i].status === 'Complete' ){ %>
 
           <li id="<%=courses[i]._id %>" class="orderUp <%= courses[i].status %>">
-            <span class="kidName">
-              <%=courses[i].name %>
-            </span>
-            <span>
-              <%= courses[i].className %>
-            </span>
-            
-            <span>
-              <%= courses[i].capacity %>
-            </span>
-            <span>
-              <%= courses[i].category %>
-            </span>
-            <span>
-              <%= courses[i].courseLength %>
-            </span>
-            <p><%= courses[i].checklist %></p>
-            <p>
-              <%= courses[i].description %>
-            </p>
-            <button class="add" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Join
-                Course</button>
+            <li><%= courses[i].className %></li>
+            <li><%= courses[i].category %></li>
+            <li><%= courses[i].capacity %></li>         
+            <li><%= courses[i].courseLength %></li>
+            <p class = "checkList"><%= courses[i].checklist %></p>
+            <p><%= courses[i].description %></p>
             <button class="drop" data-courseID=<%=courses[i]._id %>data-teacherID=<%= courses[i].teacherID %>>Leave
                 Course</button>
             <!--ADD/Drop adding propert called data course ID and storing the value of course ID-->
@@ -96,7 +78,7 @@
             <% } %>
     </ul>
   </section>
-
+</div>
   <script src="/student.js"></script>
 </body>
 

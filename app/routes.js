@@ -150,7 +150,7 @@ module.exports = function (app, passport, db, ObjectId) {
 
   app.post("/addCourse", (req, res) => {
     //when the user is creating a goal that is when the POST /goals is happening, we are inserting in the db collection
-    console.log(req.user.id);
+    console.log(req.params, 'ceheck here');
     db.collection("course").insertOne(
       {
         className: req.body.className,

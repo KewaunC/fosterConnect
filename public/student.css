@@ -9,22 +9,6 @@
   
 }
 
-.left{
-  width: 40%;
-  float: left;
- }
-
-.left ul, .courseList{
-  list-style: none; 
-}
-
-li{
-  margin-top: 1rem;
-}
-
-.courseList{
-  margin-left: 1rem;
-}
 button{
   background-color: orange;
   padding: 10px 5px;
@@ -41,6 +25,16 @@ header{
 }
 a{
   text-decoration: none;
+  color: white;
 }
 
-
+.bigContainer{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  text-decoration: none;
+  list-style: none;
+  text-decoration: none;
+}
+ul{
+  list-style: none;
+}
